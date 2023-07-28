@@ -3,6 +3,8 @@ const app = express();
 
 import { calculator, Operation } from './calculator';
 
+app.use(express.json());
+
 app.get('/ping', (_req, res) => {
   res.send('pong');
 });
