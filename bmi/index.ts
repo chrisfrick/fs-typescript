@@ -2,7 +2,10 @@ import express from 'express';
 const app = express();
 
 import { calculateBmi } from './bmiCalculator';
+import { calculateExercises } from './exerciseCalculator';
 import { isNotNumber } from './utils';
+
+app.use(express.json());
 
 app.get('/hello', (_req, res) => {
   res.send('Hello!');
@@ -30,6 +33,34 @@ app.get('/bmi/', (req, res) => {
     height,
     bmi,
   });
+});
+
+app.post('/exercises', (req, res) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { daily_exercises, target } = req.body;
+
+  // validate that paramaters exist
+  if (!daily_exercises || !target ) {
+    return res.status(400).json({
+      error: "paramters missing"
+    });
+  }
+
+  // validate type of parameters
+  if ( !Array.isArray(daily_exercises) || daily_exercises.some(elem => isNaN(Number(elem))) ) {
+    return res.status(400).json({
+      error: "malformatted parameters"
+    });
+  }
+  if ( isNotNumber(target) ) {
+    return res.status(400).json({
+      error: "malformatted parameters"
+    });
+  }
+
+  const result = calculateExercises(daily_exercises.map(elem => Number(elem)), Number(target));
+
+  return res.json(result);
 });
 
 const PORT = 3002;

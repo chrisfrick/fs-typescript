@@ -1,6 +1,6 @@
 import { isNotNumber } from './utils';
 
-interface ExerciseValues {
+export interface ExerciseValues {
   target: number;
   dailyHours: number[];
 }
@@ -31,7 +31,7 @@ const parseArguments = (args: string[]): ExerciseValues => {
   };
 };
 
-const calculateExercises = (dailyHours: number[], target: number): ExerciseResult => {
+export const calculateExercises = (dailyHours: number[], target: number): ExerciseResult => {
   const periodLength = dailyHours.length;
   const trainingDays = dailyHours.reduce(
     (trainingDays, dailyHour) =>
