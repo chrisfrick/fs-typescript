@@ -9,22 +9,21 @@ app.get('/hello', (_req, res) => {
 });
 
 app.get('/bmi/', (req, res) => {
-  if (!req.query.height || !req.query.weight) {
+  const { height, weight } = req.query;
+
+  if (!height || isNotNumber(height)) {
     return res.status(400).json({
       error: 'height or weight missing',
     });
   }
 
-  let height = req.query.height;
-  let weight = req.query.weight;
-
-  if (isNotNumber(height) || isNotNumber(weight)) {
+  if (!weight || isNotNumber(weight)) {
     return res.status(400).json({
       error: 'malformatted paramaters',
     });
   }
 
-  let bmi = calculateBmi(Number(height), Number(weight));
+  const bmi = calculateBmi(Number(height), Number(weight));
 
   return res.json({
     weight,

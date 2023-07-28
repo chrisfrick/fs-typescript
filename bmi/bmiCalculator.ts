@@ -20,7 +20,7 @@ const parseArguments = (args: string[]): BmiValues => {
 };
 
 export const calculateBmi = (heightCm: number, weightKg: number): string => {
-  let bmi = weightKg / (heightCm / 100) ** 2;
+  const bmi = weightKg / (heightCm / 100) ** 2;
   if (bmi <= 18.5) {
     return 'underweight';
   } else if (bmi > 18.5 && bmi < 25) {

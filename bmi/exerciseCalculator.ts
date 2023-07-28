@@ -17,42 +17,42 @@ interface ExerciseResult {
 
 const parseArguments = (args: string[]): ExerciseValues => {
   if (args.length < 4) throw new Error('Not enough arguments');
-  let userArgs = args.slice(2);
+  const userArgs = args.slice(2);
   userArgs.forEach((arg) => {
     if (isNotNumber(arg)) {
       throw new Error('Provided values must be numbers');
     }
   });
-  let target = Number(userArgs[0]);
-  let dailyHours = userArgs.slice(1).map((arg) => Number(arg));
+  const target = Number(userArgs[0]);
+  const dailyHours = userArgs.slice(1).map((arg) => Number(arg));
   return {
     target,
     dailyHours,
   };
 };
 
-const calculateExercises = (dailyHours: number[], target: number) => {
-  let periodLength = dailyHours.length;
-  let trainingDays = dailyHours.reduce(
+const calculateExercises = (dailyHours: number[], target: number): ExerciseResult => {
+  const periodLength = dailyHours.length;
+  const trainingDays = dailyHours.reduce(
     (trainingDays, dailyHour) =>
       dailyHour > 0 ? (trainingDays += 1) : trainingDays,
     0
   );
 
-  let totalTime = dailyHours.reduce((total, day) => total + day, 0);
-  let average = totalTime / periodLength;
+  const totalTime = dailyHours.reduce((total, day) => total + day, 0);
+  const average = totalTime / periodLength;
 
-  let success = average >= target;
+  const success = average >= target;
 
   let rating: number;
-  let averageToTargetRatio = average / target;
+  const averageToTargetRatio = average / target;
   if (averageToTargetRatio >= 1) {
     rating = 3;
   } else if (averageToTargetRatio < 1 && averageToTargetRatio >= 0.5) {
     rating = 2;
   } else rating = 1;
 
-  let ratingDescription: string;
+  let ratingDescription: string = '';
   switch (rating) {
     case 1:
       ratingDescription = 'needs improvement to meet your goal';
