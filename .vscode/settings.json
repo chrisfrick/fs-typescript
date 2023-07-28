@@ -3,5 +3,6 @@
     "./bmi",
     "./calculator",
     "./flight_diary",
+    "./patientor/backend"
   ]
 }
