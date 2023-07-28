@@ -1,3 +1,10 @@
+import { isNotNumber } from './utils';
+
+interface ExerciseValues {
+  target: number;
+  dailyHours: number[];
+}
+
 interface ExerciseResult {
   periodLength: number;
   trainingDays: number;
@@ -7,6 +14,22 @@ interface ExerciseResult {
   target: number;
   average: number;
 }
+
+const parseArguments = (args: string[]): ExerciseValues => {
+  if (args.length < 4) throw new Error('Not enough arguments');
+  let userArgs = args.slice(2);
+  userArgs.forEach((arg) => {
+    if (isNotNumber(arg)) {
+      throw new Error('Provided values must be numbers');
+    }
+  });
+  let target = Number(userArgs[0]);
+  let dailyHours = userArgs.slice(1).map((arg) => Number(arg));
+  return {
+    target,
+    dailyHours,
+  };
+};
 
 const calculateExercises = (dailyHours: number[], target: number) => {
   let periodLength = dailyHours.length;
@@ -52,4 +75,13 @@ const calculateExercises = (dailyHours: number[], target: number) => {
   };
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+try {
+  const { dailyHours, target } = parseArguments(process.argv);
+  console.log(calculateExercises(dailyHours, target));
+} catch (error: unknown) {
+  let errorMessage = 'Something bad happened.';
+  if (error instanceof Error) {
+    errorMessage += ' Error: ' + error.message;
+  }
+  console.log(errorMessage);
+}
