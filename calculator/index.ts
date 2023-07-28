@@ -18,7 +18,7 @@ app.post('/calculate', (req, res) => {
   // add more validations...
 
   const result = calculator(Number(value1), Number(value2), op as Operation);
-  res.send({ result });
+  return res.send({ result });
 });
 
 const PORT = 3003;
