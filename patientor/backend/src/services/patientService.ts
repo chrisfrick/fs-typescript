@@ -1,6 +1,7 @@
 import patients from "../../data/patients";
+import { v1 as uuid } from 'uuid';
 
-import { NonSensitivePatientInfo } from "../types";
+import { NewPatientInfo, NonSensitivePatientInfo, PatientInfo } from "../types";
 
 const getNonSensitivePatientInfo = (): NonSensitivePatientInfo[] => {
   return patients.map(({id, name, dateOfBirth, gender, occupation}) => ({
@@ -12,6 +13,19 @@ const getNonSensitivePatientInfo = (): NonSensitivePatientInfo[] => {
   }));
 };
 
+const addPatient = (patient: NewPatientInfo): PatientInfo => {
+  const id = uuid();
+
+  const newPatient = {
+    id,
+    ...patient
+  };
+
+  patients.push(newPatient);
+  return newPatient;
+};
+
 export default {
-  getNonSensitivePatientInfo
+  getNonSensitivePatientInfo,
+  addPatient,
 };
