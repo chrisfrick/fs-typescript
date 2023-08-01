@@ -5,6 +5,7 @@
     "./flight-diary",
     "./patientor/backend",
     "./react-typescript",
-    "./typescript-notes"
+    "./typescript-notes",
+    "./flight-diary-frontend"
   ]
 }
