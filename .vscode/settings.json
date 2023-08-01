@@ -3,6 +3,8 @@
     "./bmi",
     "./calculator",
     "./flight_diary",
-    "./patientor/backend"
+    "./patientor/backend",
+    "./react-typescript",
+    "./typescript-notes"
   ]
 }
