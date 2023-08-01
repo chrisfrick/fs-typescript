@@ -2,7 +2,7 @@
   "eslint.workingDirectories": [
     "./bmi",
     "./calculator",
-    "./flight_diary",
+    "./flight-diary",
     "./patientor/backend",
     "./react-typescript",
     "./typescript-notes"
