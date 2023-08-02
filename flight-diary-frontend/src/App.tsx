@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { NewDiaryEntry, NonSensitiveDiaryEntry } from './types';
 import { getAllDiaries, createDiary } from './diaryService';
 
+import axios from 'axios';
+
 interface DiaryEntryProps {
   diaryEntry: NonSensitiveDiaryEntry;
 }
@@ -25,6 +27,7 @@ const App = () => {
   const [visibility, setVisibility] = useState('');
   const [weather, setWeather] = useState('');
   const [comment, setComment] = useState('');
+  const [notification, setNotification] = useState<string | null>(null);
 
   useEffect(() => {
     getAllDiaries().then((data) => setDiaries(data));
@@ -38,13 +41,21 @@ const App = () => {
       weather,
       comment,
     };
-    createDiary(newDiaryEntry as NewDiaryEntry).then((data) => {
-      setDiaries(diaries.concat(data));
-    });
+    createDiary(newDiaryEntry as NewDiaryEntry)
+      .then((data) => {
+        setDiaries(diaries.concat(data));
+      })
+      .catch((error: unknown) => {
+        if (axios.isAxiosError(error) && error.response) {
+          setNotification(error.response.data);
+          setTimeout(() => setNotification(null), 5000);
+        }
+      });
   };
 
   return (
     <div>
+      <div style={{ color: 'red' }}>{notification}</div>
       <h2>add an entry</h2>
       <form onSubmit={diaryCreation}>
         <div>
