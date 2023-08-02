@@ -1,25 +1,11 @@
 import { useEffect, useState } from 'react';
-import { NewDiaryEntry, NonSensitiveDiaryEntry } from './types';
+import { NonSensitiveDiaryEntry } from './types';
 import { getAllDiaries, createDiary } from './diaryService';
+import { toNewDiaryEntry } from './utils';
+
+import DiaryEntry from './components/DiaryEntry';
 
 import axios from 'axios';
-
-interface DiaryEntryProps {
-  diaryEntry: NonSensitiveDiaryEntry;
-}
-
-const DiaryEntry = ({ diaryEntry }: DiaryEntryProps) => {
-  return (
-    <div>
-      <div>
-        <b>{diaryEntry.date}</b>
-      </div>
-      <div>visibility: {diaryEntry.visibility}</div>
-      <div>weather: {diaryEntry.weather}</div>
-      <br></br>
-    </div>
-  );
-};
 
 const App = () => {
   const [diaries, setDiaries] = useState<NonSensitiveDiaryEntry[]>([]);
@@ -35,13 +21,17 @@ const App = () => {
 
   const diaryCreation = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    const newDiaryEntry = {
+
+    const diaryObject = {
       date,
       visibility,
       weather,
       comment,
     };
-    createDiary(newDiaryEntry as NewDiaryEntry)
+
+    const newDiaryEntry = toNewDiaryEntry(diaryObject);
+
+    createDiary(newDiaryEntry)
       .then((data) => {
         setDiaries(diaries.concat(data));
       })
@@ -61,22 +51,67 @@ const App = () => {
         <div>
           date
           <input
+            type="date"
             value={date}
             onChange={(event) => setDate(event.target.value)}
           />
         </div>
         <div>
-          visibility
+          visibility great{' '}
           <input
-            value={visibility}
-            onChange={(event) => setVisibility(event.target.value)}
+            type="radio"
+            name="visibility"
+            onChange={() => setVisibility('great')}
+          />
+          good{' '}
+          <input
+            type="radio"
+            name="visibility"
+            onChange={() => setVisibility('good')}
+          />
+          ok{' '}
+          <input
+            type="radio"
+            name="visibility"
+            onChange={() => setVisibility('ok')}
+          />
+          poor{' '}
+          <input
+            type="radio"
+            name="visibility"
+            onChange={() => setVisibility('poor')}
           />
         </div>
         <div>
-          weather
+          weather sunny{' '}
           <input
-            value={weather}
-            onChange={(event) => setWeather(event.target.value)}
+            type="radio"
+            name="weather"
+            onChange={() => setWeather('sunny')}
+          />
+          rainy{' '}
+          <input
+            type="radio"
+            name="weather"
+            onChange={() => setWeather('rainy')}
+          />
+          cloudy{' '}
+          <input
+            type="radio"
+            name="weather"
+            onChange={() => setWeather('cloudy')}
+          />
+          stormy{' '}
+          <input
+            type="radio"
+            name="weather"
+            onChange={() => setWeather('stormy')}
+          />
+          windy{' '}
+          <input
+            type="radio"
+            name="weather"
+            onChange={() => setWeather('windy')}
           />
         </div>
         <div>
