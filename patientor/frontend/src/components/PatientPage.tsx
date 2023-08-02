@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Patient } from "../types";
 
 import patientService from "../services/patients";
-import { Card, CardContent, Container, Typography } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 
 const PatientPage = () => {
   const id = useParams().id
