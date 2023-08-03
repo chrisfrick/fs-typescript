@@ -8,9 +8,9 @@ interface DiagnosisProps {
 const DiagnosisWithCode = ({ diagnosis } : DiagnosisProps) => {
   
   if (diagnosis) return (
-    <Typography>
-          {diagnosis.code} {diagnosis.name}
-        </Typography>
+    <Typography variant="body2">
+      {diagnosis.code} - {diagnosis.name}
+    </Typography>
   )
   
   return null;
