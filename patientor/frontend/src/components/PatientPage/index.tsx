@@ -77,10 +77,10 @@ const PatientPage = () => {
     
   };
 
-  if(patient && id) return (
+  if(patient) return (
     <div>
       <PatientCard patient={patient} />
-      <NewEntryForm id={id} onSubmit={submitNewEntry} error={error}/>
+      <NewEntryForm onSubmit={submitNewEntry} error={error}/>
       <div>
         <Typography variant="h5" sx={{ marginTop: 2 }}>Entries</Typography>
         {entries()}
