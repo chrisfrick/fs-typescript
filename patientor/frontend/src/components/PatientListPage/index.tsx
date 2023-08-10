@@ -61,7 +61,11 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
             <TableCell>Name</TableCell>
             <TableCell>Gender</TableCell>
             <TableCell>Occupation</TableCell>
-            <TableCell>Health Rating</TableCell>
+            {
+              /*
+              <TableCell>Health Rating</TableCell>
+              */
+            }
           </TableRow>
         </TableHead>
         <TableBody>
@@ -70,9 +74,13 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
               <TableCell><Link to={`/patients/${patient.id}`}><Chip variant="outlined" label={patient.name}></Chip></Link></TableCell>
               <TableCell>{patient.gender}</TableCell>
               <TableCell>{patient.occupation}</TableCell>
+              {
+              /*
               <TableCell>
                 <HealthRatingBar showText={false} rating={1} />
               </TableCell>
+              */
+              }
             </TableRow>
           ))}
         </TableBody>
